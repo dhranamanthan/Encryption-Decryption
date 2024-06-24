@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Encryption App</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Encryption and Decryption</h1>
+        <form id="encryptForm">
+            <h2>Encrypt</h2>
+            <textarea id="encryptInput" placeholder="Enter text to encrypt"></textarea>
+            <button type="submit">Encrypt</button>
+            <p id="encryptResult"></p>
+        </form>
+
+        <form id="decryptForm">
+            <h2>Decrypt</h2>
+            <textarea id="decryptInput" placeholder="Enter text to decrypt"></textarea>
+            <button type="submit">Decrypt</button>
+            <p id="decryptResult"></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('encryptForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const text = document.getElementById('encryptInput').value;
+            fetch('/encrypt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `text=${encodeURIComponent(text)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('encryptResult').innerText = data.encryptedText;
+            });
+        });
+
+        document.getElementById('decryptForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const text = document.getElementById('decryptInput').value;
+            fetch('/decrypt', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `text=${encodeURIComponent(text)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('decryptResult').innerText = data.decryptedText;
+            });
+        });
+    </script>
+</body>
+</html>
