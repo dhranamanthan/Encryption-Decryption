@@ -10,9 +10,13 @@
 ## Install
 Clonning the repository 
 ```
-git clone
+git clone https://github.com/dhranamanthan/Encryption-Decryption.git
 ```
-Install package dependencies and Go to final folder and run
+Install package dependencies using NPM
+```
+npm install body-parser crypto dotenv express
+```
+Go to final folder and run
 ```
 node server.js
 ```
